@@ -1,14 +1,16 @@
 import pygame
 import random
+import os
 import sys
 from pygame.locals import *
 pygame.init()
 
 #background image
-main_bg=pygame.image.load("gallery\\sprites\\main_bg.png")
-welcome_bg=pygame.image.load("gallery\\sprites\\welcome.png")
-apple=pygame.image.load("gallery\\sprites\\apple.png")
-snake_head=pygame.image.load("gallery\\sprites\\snake_head.png")
+print(os.getcwd())
+main_bg=pygame.image.load('gallery/sprites/main_bg.png')
+welcome_bg=pygame.image.load("gallery/sprites/welcome.png")
+apple=pygame.image.load("gallery/sprites/apple.png")
+snake_head=pygame.image.load("gallery/sprites/snake_head.png")
 
 #colors
 white=(255,255,255)
@@ -41,7 +43,7 @@ def text_screen(text, color, x, y):
     screen_text = myFont.render(text, True, color)
     gamewindow.blit(screen_text, [x,y])
 
-with open("gallery\\highscore.txt","r") as f:
+with open("gallery/highscore.txt","r") as f:
     highscore = f.read()
 def welcome():
     exit_game=False
@@ -122,13 +124,13 @@ def main_game_loop():
                 score=score+10
                 food_x = random.randint(snake_size, screen_width-snake_size)
                 food_y = random.randint(snake_size, screen_height-2*snake_size)
-                pygame.mixer.music.load("gallery\\audio\\eatsound.ogg")
+                pygame.mixer.music.load("gallery/audio/eatsound.ogg")
                 pygame.mixer.music.play()
                 snake_lenth=snake_lenth+1
 
                 if score>int(highscore):
                     highscore=str(score)
-                    with open("gallery\\highscore.txt", "w") as f:
+                    with open("gallery/highscore.txt", "w") as f:
                         f.write(highscore)
 
             # gamewindow.fill(blue)
@@ -137,7 +139,7 @@ def main_game_loop():
 
             if (snake_x>screen_width-(snake_size+15)) or (snake_x<15) or (snake_y>screen_height-(snake_size+15)) or (snake_y<15):
                 game_over=True
-                pygame.mixer.music.load("gallery\\audio\\diesound.ogg")
+                pygame.mixer.music.load("gallery/audio/diesound.ogg")
                 pygame.mixer.music.play()
 
             snake_plot(gamewindow,snake_list, black, snake_size)
